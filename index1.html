@@ -1,4 +1,4 @@
-<!-- VERSION 3 -->
+<!-- VERSION 4 -->
 <!DOCTYPE html>
 <html>
 
@@ -79,12 +79,16 @@
 
     // Function to show the position assignment popup
     function showPositionPopup(playerName, playerButton) {
+      // Close any existing popups
+      closePositionPopups();
+
       // Check if the player button has been used
       if (usedPlayerButtons.includes(playerButton)) {
         return;
       }
 
       var popup = document.createElement("div");
+      popup.id = "positionPopup_" + playerName; // Unique ID for each popup
       popup.innerHTML = "Select position for " + playerName + ": ";
 
       for (var i = 0; i < positions.length; i++) {
@@ -108,6 +112,17 @@
 
       // Mark the player button as used
       usedPlayerButtons.push(playerButton);
+    }
+
+    // Function to close all position assignment popups
+    function closePositionPopups() {
+      var popups = document.querySelectorAll("div[id^='positionPopup']");
+      popups.forEach(function (popup) {
+        document.body.removeChild(popup);
+      });
+
+      // Clear the used player buttons array
+      usedPlayerButtons = [];
     }
 
     // Function to assign a position to a player
